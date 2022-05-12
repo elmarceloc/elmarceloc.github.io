@@ -1,0 +1,7 @@
+.subscriber_username{
+    /*background-image: linear-gradient(90deg, rgba(255,227,3,1) 0%, rgba(97,85,1,1) 53%, rgba(255,227,3,1) 53%, rgba(255,227,3,1) 82%)!important;*/
+    text-shadow: -1px 0px 13px #dfff00, 0 0 6px #dfff00, 0 0 6px #dfff00;
+}
+.subscriber_message{
+    color: #ffe303!important /* Cristianghost's chanel color */
+}
