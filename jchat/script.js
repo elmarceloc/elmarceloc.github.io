@@ -128,6 +128,7 @@ function resetForm(event) {
     $fade_seconds.addClass('hidden');
     $fade.val("30");
     $small_caps.prop('checked', false);
+    $subs.prop('checked', true);
 
     sizeUpdate();
     fontUpdate();
@@ -135,12 +136,14 @@ function resetForm(event) {
     shadowUpdate();
     badgesUpdate();
     capsUpdate();
+    subsUpdate();
     if ($example.hasClass("white"))
         changePreview();
 
     $result.addClass('hidden');
     $generator.removeClass('hidden');
     showUrl();
+
 }
 
 const $generator = $("form[name='generator']");
