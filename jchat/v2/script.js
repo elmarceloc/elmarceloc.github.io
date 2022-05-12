@@ -440,16 +440,6 @@ Chat = {
     loadUserBadges: function(nick, userId) {
         Chat.info.userBadges[nick] = [];
 
-        // booyah tv badges
-        booyahtv_badges.forEach(badge =>{
-            if(badge.name == nick) {
-                var userBadge = {
-                    description: '',
-                    url: badge.url
-                };
-                if (!Chat.info.userBadges[nick].includes(userBadge)) Chat.info.userBadges[nick].push(userBadge);
-            }
-        })
 
         $.getJSON('https://api.frankerfacez.com/v1/user/' + nick).always(function(res) {
             if (res.badges) {
@@ -509,6 +499,8 @@ Chat = {
                     }
                 });
             });
+
+            
         });
     },
 
@@ -578,6 +570,16 @@ Chat = {
                         $userInfo.append($badge);
                     }
                 });
+
+                // booyah tv badges
+                booyahtv_badges.forEach(badge =>{
+                    if(badge.name == nick) {
+                        var $badge = $('<img/>');
+                        $badge.addClass('badge');
+                        $badge.attr('src', badge.url);
+                        $userInfo.append($badge);
+                    }
+                })
             }
 
             // Writing username
