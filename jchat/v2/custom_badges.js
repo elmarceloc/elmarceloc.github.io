@@ -13,7 +13,7 @@ var booyahtv_badges = [
     },
     {
         name: 'notvalegangas',
-        url: 'https://cdn.7tv.app/emote/60bf8017f2e69d99a746417a/4x'
+        url: 'https://cdn.betterttv.net/emote/60a7489567644f1d67e8a245/3x'
     },
     {
         name: 'nonsito',
