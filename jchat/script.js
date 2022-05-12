@@ -65,8 +65,7 @@ function subsUpdate(event) {
 
 function generateURL(event) {
     event.preventDefault();
-
-    const generatedUrl = 'http://localhost:5500/v2/index.html?channel=' + $channel.val();
+    const generatedUrl = 'https://elmarceloc.github.io/jchat/v2/index.html?channel=' + $channel.val();
 
     let data = {
         size: $size.val(),
