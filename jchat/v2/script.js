@@ -82,6 +82,13 @@ Chat = {
 
     loadEmotes: function(channelID) {
         Chat.info.emotes = {};
+        // Chiri easter egg
+        Chat.info.emotes['YEAHBUTCHIRI'] = {
+            id: '623d04a01804413770954fa7',
+            image: 'https://cdn.7tv.app/emote/623d04a01804413770954fa7/4x',
+            upscale: true
+        };
+
         // Load BTTV, FFZ and 7TV emotes
         ['emotes/global', 'users/twitch/' + encodeURIComponent(channelID)].forEach(endpoint => {
             $.getJSON('https://api.betterttv.net/3/cached/frankerfacez/' + endpoint).done(function(res) {
