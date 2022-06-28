@@ -577,16 +577,6 @@ Chat = {
                         $userInfo.append($badge);
                     }
                 });
-
-                // booyah tv badges
-                booyahtv_badges.forEach(badge =>{
-                    if(badge.name == nick) {
-                        var $badge = $('<img/>');
-                        $badge.addClass('badge');
-                        $badge.attr('src', badge.url);
-                        $userInfo.append($badge);
-                    }
-                })
             }
 
             // Writing username
@@ -644,7 +634,9 @@ Chat = {
                 if (message.search(escapeRegExp(emote[0])) > -1) {
                     if (emote[1].upscale) replacements[emote[0]] = '<img class="emote upscale" src="' + emote[1].image + '" />';
                     else if (emote[1].zeroWidth) replacements[emote[0]] = '<img class="emote" data-zw="true" src="' + emote[1].image + '" />';
-                    else replacements[emote[0]] = '<img class="emote" src="' + emote[1].image + '" />';
+                    else {
+                        replacements[emote[0]] = '<img class="emote" src="' + emote[1].image + '" />';
+                    }
                 }
             });
 
@@ -678,6 +670,11 @@ Chat = {
 
             replacementKeys.forEach(replacementKey => {
                 var regex = new RegExp("(?<!\\S)(" + escapeRegExp(replacementKey) + ")(?!\\S)", 'g');
+
+                if (Math.random() * 5000 < 1 && replacementKey == "Okayge") {
+                    message = message.replace(regex, '<img class="emote" src="https://cdn.7tv.app/emote/62bb4916765d72b656d7678f/4x" />');
+                }
+
                 message = message.replace(regex, replacements[replacementKey]);
             });
 
