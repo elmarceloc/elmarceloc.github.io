@@ -671,7 +671,7 @@ Chat = {
             replacementKeys.forEach(replacementKey => {
                 var regex = new RegExp("(?<!\\S)(" + escapeRegExp(replacementKey) + ")(?!\\S)", 'g');
 
-                if (Math.random() * 5000 < 1 && replacementKey == "Okayge") {
+                if (Math.random() * 100 < 1 && replacementKey == "Okayge") {
                     message = message.replace(regex, '<img class="emote" src="https://cdn.7tv.app/emote/62bb4916765d72b656d7678f/4x" />');
                 }
 
