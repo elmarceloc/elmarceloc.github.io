@@ -128,9 +128,9 @@ function createEmote(url) {
     group.add( plane );
 
     // remove after 15 secounds
-    setTimeout(function(){
+    /*setTimeout(function(){
         group.remove( plane );
-    }, 30000);
+    }, 30000);*/
 }
 
 init();
