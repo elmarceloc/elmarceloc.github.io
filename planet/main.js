@@ -141,7 +141,7 @@ animate();
 }*/
 
 const client = new tmi.Client({
-	channels: [ 'dylanterolive' ]
+	channels: [ channel ]
 });
 
 client.connect();
