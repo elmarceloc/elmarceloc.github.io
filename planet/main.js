@@ -19,6 +19,7 @@ function init() {
 
     renderer.setClearColor( 0x07020c, 1 ); // 0x021A28
 
+
     //  camera
     if (debug){
         camera.position.x = -20;
@@ -30,19 +31,18 @@ function init() {
     camera.position.y = 9
 
     // planet
-    const geometry = new THREE.CircleGeometry( planetRadius, 64 );
+    const geometry = new THREE.CircleGeometry( planetRadius, 128 );
 
 
-    // gradient from 0xFD00A7 to 0xFF00FF from image
-    const material = new THREE.MeshBasicMaterial(  { map: new THREE.TextureLoader().load( "texture.png" ) } );
-    
+    // transparent background
+    const material = new THREE.MeshBasicMaterial(  { map: new THREE.TextureLoader().load( "texture.png" )} );
 
    // const material = new THREE.MeshBasicMaterial( { color: 0xFD00A7 } );
 
     planet = new THREE.Mesh( geometry, material );
-
+    
     planet.position.y = 2;
-    scene.add( planet );
+    scene.add( planet );    
 
     // emotes
     group = new THREE.Group();
@@ -62,14 +62,10 @@ function animate() {
     // for every emote
     for (var i = 0; i < group.children.length; i++) {
         // move emote
-        group.children[i].position.y = -Math.sin( tick/500 + i/10 ) * distanceToPlanet * (Math.sqrt(1-group.children[i].position.x**2/distanceToPlanet**2));
-        group.children[i].position.z = Math.cos( tick/500 + i/10 )  * distanceToPlanet * (Math.sqrt(1-group.children[i].position.x**2/distanceToPlanet**2));
+        group.children[i].position.y = -Math.sin( tick/200 + i/10 ) * distanceToPlanet * (Math.sqrt(1-group.children[i].position.x**2/distanceToPlanet**2));
+        group.children[i].position.z = Math.cos( tick/200 + i/10 )  * distanceToPlanet * (Math.sqrt(1-group.children[i].position.x**2/distanceToPlanet**2));
     
     }
-
-
-
-    
 
 
 
@@ -109,8 +105,9 @@ function animate() {
 };
 
 function createEmote(url) {
+
     // create a plane to hold the image texture of the emote
-    const geometry = new THREE.PlaneGeometry( 0.1, 0.1 );
+    const geometry = new THREE.PlaneGeometry( 0.2, 0.2 );
     const material = new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( url ) } );
     const plane = new THREE.Mesh( geometry, material );
 
@@ -150,16 +147,19 @@ let regex = new RegExp(/\${}\s/gm);
 
 
 client.on('message', async (channel, tags, message, self) => {
+
     /// for every emote using foreach
      for (var i = 0; i < emotes.length; i++) {
-        let emote = emotes[i];
-        
+        var emote = emotes[i];
+    
+
         let regex = new RegExp(`(^|\s)${emote.emoteName}($| )`, "gm");
         let match = message.match(regex);
         // if there are emotes in the message
         if (match) {
-            createEmote(emote.emoteURL);
-
+            //for(var i=0; i < 10; i++){
+                createEmote(emote.emoteURL);
+            //}
         }
 
         //console.log(emoteName)
@@ -168,7 +168,7 @@ client.on('message', async (channel, tags, message, self) => {
 
 // toggle debug mode with d
 document.addEventListener('keydown', (event) => {
-    /*if (event.keyCode === 68) {
+    if (event.keyCode === 68) {
         debug = !debug;
 
         if (debug){
@@ -178,5 +178,5 @@ document.addEventListener('keydown', (event) => {
             camera.position.x = 0;
             camera.rotation.y = 0; 
         }
-    }*/
+    }
 })
