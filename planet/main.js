@@ -46,6 +46,7 @@ function init() {
     var asteroidsInterval = setInterval(function(){
         if(asteroids < 40){
             createAsteroid();
+        }else{
             clearInterval(asteroidsInterval);
         }
         asteroids++;
