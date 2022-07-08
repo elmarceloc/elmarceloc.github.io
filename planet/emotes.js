@@ -1,11 +1,3 @@
-// get channel from url params
-const urlParams = new URLSearchParams(window.location.search);
-const channel = urlParams.get('channel');
-
-if (channel) {
-    console.log(`Channel: ${channel}`);
-}
-
 let emotes = [];
 
 async function getEmotes() {
