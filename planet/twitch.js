@@ -11,20 +11,60 @@ client.connect();
 let regex = new RegExp(/\${}\s/gm);
 
 client.on('message', async (channel, tags, message, self) => {
+    
+    // parse all Twitch emotes
 
-    /// for every emote using foreach
-     for (var i = 0; i < emotes.length; i++) {
-        var emote = emotes[i];
+    // iterate tags.emotes keys
+    // for each key, add to emotes
+    console.log(tags)
+    for( let key in tags.emotes ){
+        console.log(key)
+       /* let emote = {
+            emoteName: "",
+            emoteURL: `https://static-cdn.jtvnw.net/emoticons/v2/${key}/default/dark/4.0`,
+        };
+        emotes.push(emote);*/
+        //addEmote("", `https://static-cdn.jtvnw.net/emoticons/v2/${key}/default/dark/4.0`)
+        
+        // for every key of keys
+        // add to emotes
 
-        let regex = new RegExp(`(^|\s)${emote.emoteName}($| )`, "gm");
-        let match = message.match(regex);
-        // if there are emotes in the message
-        if (match) {
-            //for(var i=0; i < 10; i++){
-                createEmote(emote.emoteURL);
-            //}
+        for( let key2 in tags.emotes[key] ){
+            console.log(key2)
+            // add to emotes
+            createEmote('', `https://static-cdn.jtvnw.net/emoticons/v2/${key}/default/dark/4.0`)
+
         }
 
-        //console.log(emoteName)
+       
     }
+
+
+    /// parse all BTTV, FFZ and 7TV emotes
+    
+    message.split(" ").forEach(word => {
+        // if word match with a emote
+        if (emotes[word]){
+            for(let i = 0; i < 10; i++){
+                createEmote(emotes[word]);
+            }
+        }
+    })
+    
+    /*for (var i = 0; i < emotes.length; i++) {
+        var emote = emotes[i];*/
+
+        //let regex = new RegExp(`(^|\s)${emote.emoteName}($| )`, "gm");
+       /* let matches = message.match(regex);
+        
+     
+        if (matches) {
+            console.log(matches)
+            //for(var j=0; j < 4; j++){
+                
+            //}
+        }*/
+
+        //console.log(emoteName)
+    //}
 })

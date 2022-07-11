@@ -10,8 +10,13 @@ const fontURL = "https://raw.githubusercontent.com/mrdoob/three.js/master/exampl
 const planetRadius = 6.5;
 const distanceToPlanet = 10;
 
+var tick = 270;
 
 function init() {
+
+    // emotes
+    emotesGroup = new THREE.Group();
+    scene.add( emotesGroup );
 
     // world
 
@@ -21,25 +26,31 @@ function init() {
     camera.position.z = 5;
     camera.position.y = 9
 
-    // planet
-    const geometry = new THREE.CircleGeometry( planetRadius, 128 );
+    if (style == 'epico'){
 
+        var geometry = new THREE.SphereGeometry( planetRadius/2, 128, 128 );
+        
+        
+        var material = new THREE.MeshBasicMaterial(  { map: new THREE.TextureLoader().load( "epico.png" )} );
+        //const material = new THREE.MeshBasicMaterial( { color: 0x020102 } );
+        planet = new THREE.Mesh( geometry, material );
 
-    // transparent background
-    const material = new THREE.MeshBasicMaterial(  { map: new THREE.TextureLoader().load( "planet.png" )} );
-    //const material = new THREE.MeshBasicMaterial( { color: 0x020102 } );
+        planet.position.y = 6;
+        planet.position.z = 0;
+        planet.rotation.x = 50;
+        
+    }else{
+        var geometry = new THREE.CircleGeometry( planetRadius, 128 );
+        var material = new THREE.MeshBasicMaterial(  { map: new THREE.TextureLoader().load( "planet.png" )} );
+        
+        planet = new THREE.Mesh( geometry, material );
 
-    planet = new THREE.Mesh( geometry, material );
-    
-    planet.position.y = 2;
+        planet.position.y = 2;
+
+    }
     scene.add( planet );    
 
-    // emotes
-    group = new THREE.Group();
-    scene.add( group );
 
-
-    // create up to 40 asteorids, 1 every 3 secounds
     var asteroids = 0
 
 
@@ -66,7 +77,6 @@ function init() {
 
 }
 
-var tick = 270;
 
 function animate() {
     requestAnimationFrame( animate );
@@ -74,16 +84,20 @@ function animate() {
     tick++;
 
     // for every emote
-    for (var i = 0; i < group.children.length; i++) {
+    for (var i = 0; i < emotesGroup.children.length; i++) {
         // move emote
-        group.children[i].position.y = -Math.sin( tick/200 + i/10 ) * distanceToPlanet * (Math.sqrt(1-group.children[i].position.x**2/distanceToPlanet**2));
-        group.children[i].position.z = Math.cos( tick/200 + i/10 )  * distanceToPlanet * (Math.sqrt(1-group.children[i].position.x**2/distanceToPlanet**2));
+        emotesGroup.children[i].position.y = -Math.sin( tick/400 + i/10 ) * distanceToPlanet * (Math.sqrt(1-emotesGroup.children[i].position.x**2/distanceToPlanet**2));
+        emotesGroup.children[i].position.z = Math.cos( tick/400 + i/10 )  * distanceToPlanet * (Math.sqrt(1-emotesGroup.children[i].position.x**2/distanceToPlanet**2));
+    }
+
+    if (style == 'epico'){
+        planet.rotation.y += 0.05;
     }
 
     if(debug){
         const points = [];
 
-        points.push( new THREE.Vector3(  group.position.x, group.position.y, group.position.z ) );
+        points.push( new THREE.Vector3(  emotesGroup.position.x, emotesGroup.position.y, emotesGroup.position.z ) );
         points.push( new THREE.Vector3(  planet.position.x, planet.position.y, planet.position.z ) );
 
         const geometry = new THREE.BufferGeometry().setFromPoints( points );
@@ -111,36 +125,44 @@ function createAsteroid(){
     asteroid.position.y = y;
     asteroid.position.z = 0;
 
-    group.add(asteroid)
+    emotesGroup.add(asteroid)
 
 }
+var emoteCount = 0;
 
 function createEmote(url) {
 
     // create a plane to hold the image texture of the emote
     const geometry = new THREE.PlaneGeometry( emoteSize/10, emoteSize/10 );
     const material = new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( url ) } );
-    const plane = new THREE.Mesh( geometry, material );
+    const emote = new THREE.Mesh( geometry, material );
 
-    plane.material.transparent = true;
+    emote.material.transparent = true;
 
-    const x = Math.random() * 25 - 12.5
-    const y = Math.random() * 2 - 2
+    const x = Math.random() * 15 - 7.5
+    const y = Math.random() * 20 - 20
 
-    plane.position.x = x;
-    plane.position.y = y;
-    plane.position.z = 0;
-
-
-    // limit the amount up to 20 and delete the first one if reachs the limit
+    emote.position.x = x;
+    emote.position.y = y;
+    emote.position.z = 0;
     
-    if (group.children.length > 20) {
+    console.log("Emote created: " + x, y)
+
+    emotesGroup.add( emote );
+
+
+    /*setTimeout(function(){
+        emotesGroup.children[emoteCount].visible = false
+        emoteCount++;
+    }, 15000);*/
+
+    /*if (emotesGroup.children.length > 40) {
         //group.remove( group.children[0] );
         // hide it
-        group.children[0].visible = false;
-    }
+        emotesGroup.children[emoteCount].visible = false;
+        emoteCount++
+    }*/
     
-    group.add( plane );
 
 }
 

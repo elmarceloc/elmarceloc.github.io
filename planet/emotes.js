@@ -1,4 +1,4 @@
-let emotes = [];
+let emotes = {};
 
 async function getEmotes() {
     function returnResponse(response) {
@@ -18,6 +18,14 @@ async function getEmotes() {
         twitchID = res.id;
     }
 
+    /*res = await fetch("https://api.ivr.fi/v2/twitch/emotes/channel/"+ channel, {
+        method: "GET",
+    }).then(returnResponse);
+    if (!res.error || res.status == 200) {
+        //emotes = res.data;
+        addTwitchEmotes(res.subProducts)
+
+    }*/
     // get FFZ emotes
     res = await fetch(proxyurl + "https://api.frankerfacez.com/v1/room/" + channel, {
         method: "GET",
@@ -60,11 +68,7 @@ async function getEmotes() {
             totalErrors.push("Error getting 7tv emotes");
         } else {
             for (var i = 0; i < res.length; i++) {
-                let emote = {
-                    emoteName: res[i].name,
-                    emoteURL: res[i].urls[1][1],
-                };
-                emotes.push(emote);
+                addEmote(res[i].name, res[i].urls[1][1])
             }
         }
         // get all 7TV global emotes
@@ -84,11 +88,7 @@ async function getEmotes() {
 
 
 function addEmote(name, url){
-    let emote = {
-        emoteName: name,
-        emoteURL: url,
-    };
-    emotes.push(emote);
+    emotes[name] = url
 }
 
 function addFFZemotes(sets){
@@ -111,6 +111,17 @@ function addBttvEmotes(group){
 function addSeventvEmotes(group){
     for (var i = 0; i < group.length; i++) {
         addEmote( group[i].name, group[i].urls[1][1])
+    }
+}
+
+function addTwitchEmotes(sublevel){
+    // loop sublevel object
+    for (var key in sublevel) {
+        // loop emotes array
+        for(var j = 0; j < sublevel[key].emotes.length; j++){
+            const emote = sublevel[key].emotes[j];
+            addEmote(emote.code, `https://static-cdn.jtvnw.net/emoticons/v2/${emote.id}/default/dark/1.0`)
+        }
     }
 }
 
