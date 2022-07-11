@@ -104,7 +104,7 @@ function addFFZemotes(sets){
 
 function addBttvEmotes(group){
     for (var i = 0; i < group.length; i++) {
-        addEmote(group[i].code, `https://cdn.betterttv.net/emote/${group[i].id}/2x`)
+        addEmote(group[i].code, `https://cdn.betterttv.net/emote/${group[i].id}/3x`)
     }
 }
 
@@ -120,7 +120,7 @@ function addTwitchEmotes(sublevel){
         // loop emotes array
         for(var j = 0; j < sublevel[key].emotes.length; j++){
             const emote = sublevel[key].emotes[j];
-            addEmote(emote.code, `https://static-cdn.jtvnw.net/emoticons/v2/${emote.id}/default/dark/1.0`)
+            addEmote(emote.code, `https://static-cdn.jtvnw.net/emoticons/v2/${emote.id}/default/dark/4.0`)
         }
     }
 }

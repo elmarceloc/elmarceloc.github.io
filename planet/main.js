@@ -131,9 +131,9 @@ function createAsteroid(){
 var emoteCount = 0;
 
 function createEmote(url) {
-
+    const extraSize = Math.random()/2
     // create a plane to hold the image texture of the emote
-    const geometry = new THREE.PlaneGeometry( emoteSize/10, emoteSize/10 );
+    const geometry = new THREE.PlaneGeometry( (emoteSize/10) + extraSize, (emoteSize/10) + extraSize);
     const material = new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load( url ) } );
     const emote = new THREE.Mesh( geometry, material );
 
