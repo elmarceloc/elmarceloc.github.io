@@ -1,3 +1,5 @@
+let regex = new RegExp(/\${}\s/gm);
+
 const client = new tmi.Client({
 	channels: [ channel ],
     identity: {
@@ -7,8 +9,6 @@ const client = new tmi.Client({
 });
 
 client.connect();
-
-let regex = new RegExp(/\${}\s/gm);
 
 client.on('message', async (channel, tags, message, self) => {
     
@@ -50,21 +50,5 @@ client.on('message', async (channel, tags, message, self) => {
             }
         }
     })
-    
-    /*for (var i = 0; i < emotes.length; i++) {
-        var emote = emotes[i];*/
 
-        //let regex = new RegExp(`(^|\s)${emote.emoteName}($| )`, "gm");
-       /* let matches = message.match(regex);
-        
-     
-        if (matches) {
-            console.log(matches)
-            //for(var j=0; j < 4; j++){
-                
-            //}
-        }*/
-
-        //console.log(emoteName)
-    //}
 })

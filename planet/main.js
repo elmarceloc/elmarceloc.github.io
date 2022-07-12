@@ -151,10 +151,10 @@ function createEmote(url) {
     emotesGroup.add( emote );
 
 
-    /*setTimeout(function(){
+    setTimeout(function(){
         emotesGroup.children[emoteCount].visible = false
         emoteCount++;
-    }, 15000);*/
+    }, 15000);
 
     /*if (emotesGroup.children.length > 40) {
         //group.remove( group.children[0] );
