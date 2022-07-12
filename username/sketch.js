@@ -27,7 +27,7 @@ function preload() {
 }
 
 function setup() {
-    createCanvas(1920, 1080);
+    createCanvas(window.innerWidth  , window.innerHeight);
     background(51);
         
     x = width / 2;
