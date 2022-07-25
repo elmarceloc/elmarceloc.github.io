@@ -45,7 +45,7 @@ client.on('message', async (channel, tags, message, self) => {
     message.split(" ").forEach(word => {
         // if word match with a emote
         if (emotes[word]){
-            for(let i = 0; i < 10; i++){
+            for(let i = 0; i < 5; i++){
                 createEmote(emotes[word]);
             }
         }

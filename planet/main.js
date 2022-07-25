@@ -18,6 +18,7 @@ function init() {
     emotesGroup = new THREE.Group();
     scene.add( emotesGroup );
 
+
     // world
 
     //renderer.setClearColor( 0x07020c, 1 ); // 0x021A28
@@ -150,11 +151,17 @@ function createEmote(url) {
 
     emotesGroup.add( emote );
 
-
+    // destroy emote after 5 seconds
     setTimeout(function(){
+        emote.visible = false;
+
+    }, 15000);
+
+   /* setTimeout(function(){
         emotesGroup.children[emoteCount].visible = false
         emoteCount++;
-    }, 15000);
+    }, 15000);*/
+
 
     /*if (emotesGroup.children.length > 40) {
         //group.remove( group.children[0] );
