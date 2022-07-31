@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.7be2b927.css",
-    "main.js": "/static/js/main.37ea3c03.js",
+    "main.css": "/static/css/main.462eaf36.css",
+    "main.js": "/static/js/main.fd15d5ba.js",
     "static/media/incoludido.png": "/static/media/incoludido.7108a44c747825cc2fdd.png",
     "static/media/burger-king.svg": "/static/media/burger-king.65282a163dcb9dd5ca36f4455eb10035.svg",
     "static/media/Lua.svg": "/static/media/Lua.9fa447d9f5d941b177da9e9c1d1b8045.svg",
     "index.html": "/index.html",
-    "main.7be2b927.css.map": "/static/css/main.7be2b927.css.map",
-    "main.37ea3c03.js.map": "/static/js/main.37ea3c03.js.map"
+    "main.462eaf36.css.map": "/static/css/main.462eaf36.css.map",
+    "main.fd15d5ba.js.map": "/static/js/main.fd15d5ba.js.map"
   },
   "entrypoints": [
-    "static/css/main.7be2b927.css",
-    "static/js/main.37ea3c03.js"
+    "static/css/main.462eaf36.css",
+    "static/js/main.fd15d5ba.js"
   ]
 }
