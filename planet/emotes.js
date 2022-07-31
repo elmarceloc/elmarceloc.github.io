@@ -18,14 +18,14 @@ async function getEmotes() {
         twitchID = res.id;
     }
 
-    /*res = await fetch("https://api.ivr.fi/v2/twitch/emotes/channel/"+ channel, {
+    res = await fetch("https://api.ivr.fi/v2/twitch/emotes/channel/"+ channel, {
         method: "GET",
     }).then(returnResponse);
     if (!res.error || res.status == 200) {
         //emotes = res.data;
         addTwitchEmotes(res.subProducts)
 
-    }*/
+    }
     // get FFZ emotes
     res = await fetch(proxyurl + "https://api.frankerfacez.com/v1/room/" + channel, {
         method: "GET",
