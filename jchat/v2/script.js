@@ -807,3 +807,131 @@ Chat = {
 $(document).ready(function() {
     Chat.connect($.QueryString.channel ? $.QueryString.channel.toLowerCase() : 'giambaj');
 });
+
+function getColorByNickname(username){
+	const colors = [
+		"#002FA7",
+		"#8a2be2",
+		"#5f9ea0",
+		"#E4717A",
+		"#1e90ff",
+		"#b22222",
+		"#00FF00",
+		"#ff69b4",
+		"#ff4500",
+		"#ff0000",
+	];
+
+	var hash = username.charCodeAt(0);
+
+	var color = "#6525a1";
+	
+	for (let i = 0; i < colors.length; i++) {
+		if (hash % i === 0) {
+			color = colors[i];
+		}
+	}
+
+	return color
+}
+
+// tiktok
+
+let connection = new TikTokIOConnection("https://tiktok-chat-reader.zerody.one/");
+
+connect();
+
+function connect() {
+    let uniqueId = "cristiangh0st";
+
+    if (uniqueId !== '') {
+
+        //$('#stateText').text('Connecting...');
+
+        connection.connect(uniqueId, {
+            enableExtendedGiftInfo: true
+        }).then(state => {
+            //$('#stateText').text(`Connected to roomId ${state.roomId}`);
+
+        }).catch(errorMessage => {
+            //$('#stateText').text(errorMessage);
+
+            // schedule next try if obs username set
+            if (uniqueId) {
+                setTimeout(() => {
+                    connect(uniqueId);
+                }, 30000);
+            }
+        })
+
+    } else {
+        //alert('no username entered');
+    }
+}
+
+function sanitize(text) {
+    return text.replace(/</g, '&lt;')
+}
+
+var messages = []
+var messageId = 0
+
+function addChatItem(color, data, text, summarize) {
+    let container = $('.chatcontainer');
+
+    let didReturn = false
+
+    messages.forEach(message => {
+        if (data.uniqueId == message.uniqueId && message.content == text) didReturn = true
+    });
+
+    if (didReturn) return
+
+    var $chatLine = $('<div></div>');
+    $chatLine.addClass('chat_line');
+    $chatLine.attr('data-nick', data.uniqueId);
+    $chatLine.attr('data-time', Date.now());
+    $chatLine.attr('data-id', messageId);
+    var $userInfo = $('<span></span>');
+    $userInfo.addClass('user_info');
+
+    // tiktok badge
+    var $badge = $('<img/>');
+    $badge.addClass('badge');
+    $badge.attr('src', './tiktok-badge.png');
+    $userInfo.append($badge);
+
+    // Writing username
+    var $username = $('<span></span>');
+    $username.addClass('nick');
+
+    $username.css('color', getColorByNickname(data.uniqueId));
+    $username.html(data.uniqueId);
+    $userInfo.append($username);
+
+    // Writing message
+    var $message = $('<span></span>');
+    $message.addClass('message');
+
+
+    $userInfo.append('<span class="colon">:</span>');
+    
+    $chatLine.append($userInfo);
+
+    text = escapeHtml(text);
+
+    text = twemoji.parse(text);
+    $message.html(text);
+
+    $chatLine.append($message);
+    Chat.info.lines.push($chatLine.wrap('<div>').parent().html());
+
+    console.log('tiktok => '+sanitize(text))
+
+    messageId ++
+}
+
+connection.on('chat', (msg) => {
+    console.log(msg)
+    addChatItem('', msg, msg.comment);
+})
