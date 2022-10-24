@@ -66,6 +66,7 @@ Chat = {
         shadow: ('shadow' in $.QueryString ? parseInt($.QueryString.shadow) : false),
         smallCaps: ('small_caps' in $.QueryString ? ($.QueryString.small_caps.toLowerCase() === 'true') : false),
         subs: ('subs' in $.QueryString ? ($.QueryString.subs.toLowerCase() === 'true') : false),
+        whitemode: ('whitemode' in $.QueryString ? ($.QueryString.whitemode.toLowerCase() === 'true') : false),
         emotes: {},
         badges: {},
         userBadges: {},
@@ -152,6 +153,14 @@ Chat = {
                     rel: "stylesheet",
                     type: "text/css",
                     href: "styles/variant_subs.css"
+                }).appendTo("head");
+            }
+
+            if (Chat.info.whitemode){
+                $("<link/>", {
+                    rel: "stylesheet",
+                    type: "text/css",
+                    href: "styles/variant_whitemode.css"
                 }).appendTo("head");
             }
 
